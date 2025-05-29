@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building for Low-Bandwidth Users | Benjamin Mutinda</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0a192f;
+            --secondary-color: #020c1b;
+            --accent-color: #64ffda;
+            --text-color: #e6f1ff;
+            --text-secondary: #8892b0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--primary-color);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            width: 85%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+        
+        /* Header Styles */
+        .article-header {
+            text-align: center;
+            padding: 60px 0 40px;
+            background: linear-gradient(to right, #0a192f, #112240);
+            border-bottom: 1px solid #233554;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent-color);
+            margin-bottom: 30px;
+            text-decoration: none;
+            transition: gap 0.3s ease;
+        }
+        
+        .back-link:hover {
+            gap: 12px;
+        }
+        
+        .article-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+        
+        .article-subtitle {
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        .article-meta {
+            color: var(--text-secondary);
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 0.95rem;
+            margin-top: 20px;
+        }
+        
+        /* Article Content Styles */
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px 0;
+        }
+        
+        .article-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin: 30px 0;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        h2 {
+            color: var(--accent-color);
+            margin: 40px 0 20px;
+            font-size: 1.8rem;
+            border-bottom: 1px solid #233554;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            color: var(--text-color);
+            margin: 30px 0 15px;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        
+        ul, ol {
+            margin-bottom: 25px;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            color: var(--text-secondary);
+        }
+        
+        .tech-tip {
+            background-color: #112240;
+            border-left: 4px solid var(--accent-color);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .tech-tip h4 {
+            color: var(--accent-color);
+            margin-top: 0;
+        }
+        
+        .case-study {
+            background-color: #112240;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 40px 0;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+        }
+        
+        .comparison-table th {
+            background-color: #112240;
+            color: var(--accent-color);
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .comparison-table td {
+            padding: 12px;
+            border-bottom: 1px solid #233554;
+            color: var(--text-secondary);
+        }
+        
+        .comparison-table tr:hover {
+            background-color: rgba(100, 255, 218, 0.05);
+        }
+        
+        /* Footer Styles */
+        .article-footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid #233554;
+            margin-top: 60px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            padding: 12px 28px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.3);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+            
+            .article-title {
+                font-size: 2rem;
+            }
+            
+            .article-subtitle {
+                font-size: 1rem;
+            }
+            
+            .article-image {
+                height: 250px;
+            }
+            
+            .article-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .comparison-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Article Header -->
+    <header class="article-header">
+        <div class="container">
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Portfolio
+            </a>
+            <h1 class="article-title">Building for Low-Bandwidth Users</h1>
+            <p class="article-subtitle">Practical techniques to optimize websites for areas with unstable internet connections across East Africa</p>
+            <div class="article-meta">
+                <span><i class="far fa-calendar-alt"></i> Published: February 2, 2023</span>
+                <span><i class="fas fa-wifi"></i> Focus: Kenya, Tanzania, Uganda</span>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Article Content -->
+    <div class="container">
+        <article class="article-content">
+            <img src="img/Mobile internet users in rural East Africa.jpg" alt="Mobile internet users in rural East Africa" class="article-image">
+            
+            <p>While urban centers like Nairobi enjoy relatively good connectivity, much of East Africa struggles with slow and unreliable internet. Through my work developing solutions for regional NGOs and businesses, I've compiled these practical techniques to serve users across the connectivity spectrum.</p>
+            
+            <h2>The East African Context</h2>
+            
+            <p>Key challenges affecting web performance:</p>
+            
+            <ul>
+                <li><strong>Mobile-dominated usage:</strong> 87% of Kenyan internet users access via mobile</li>
+                <li><strong>High latency:</strong> Average ping times of 300ms+ in rural areas</li>
+                <li><strong>Data costs:</strong> 1GB = ~5% of monthly income for low-earners</li>
+                <li><strong>Network fluctuations:</strong> Frequent 2G/3G fallback in peri-urban areas</li>
+            </ul>
+            
+            <div class="tech-tip">
+                <h4>Local Insight</h4>
+                <p>In Tanzania, we found users regularly switch between WiFi hotspots and mobile data, requiring resilient connection handling in web apps.</p>
+            </div>
+            
+            <h2>Core Optimization Strategies</h2>
+            
+            <h3>1. Asset Optimization</h3>
+            
+            <div class="comparison-table">
+                <table>
+                    <tr>
+                        <th>Approach</th>
+                        <th>Impact</th>
+                        <th>Tools</th>
+                    </tr>
+                    <tr>
+                        <td>WebP images</td>
+                        <td>25-35% smaller than JPEG</td>
+                        <td>Squoosh, ImageMagick</td>
+                    </tr>
+                    <tr>
+                        <td>SVG icons</td>
+                        <td>90% reduction vs PNG</td>
+                        <td>Font Awesome, Feather Icons</td>
+                    </tr>
+                    <tr>
+                        <td>Lazy loading</td>
+                        <td>40% initial load reduction</td>
+                        <td>loading="lazy", Intersection Observer</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="case-study">
+                <h3>Case Study: FarmConnect Kenya</h3>
+                <p>For this agricultural platform serving rural farmers, we implemented:</p>
+                <ul>
+                    <li>Progressive Web App (PWA) for offline functionality</li>
+                    <li>Text-only fallback for commodity prices</li>
+                    <li>Local caching of essential resources</li>
+                </ul>
+                <p><strong>Result:</strong> 68% reduction in data usage per session</p>
+            </div>
+            
+            <h3>2. Smart Content Delivery</h3>
+            
+            <p>Techniques we've used successfully in Uganda:</p>
+            
+            <ol>
+                <li><strong>Conditional loading:</strong> Serve lighter content to slow connections</li>
+                <li><strong>Local CDNs:</strong> Leverage Safaricom and Airtel edge nodes</li>
+                <li><strong>Data-saver mode:</strong> User-toggleable simplified interface</li>
+            </ol>
+            
+            <div class="tech-tip">
+                <h4>Pro Tip</h4>
+                <p>Use the Network Information API to detect connection type/speed and adapt accordingly:</p>
+                <pre><code>if (navigator.connection.effectiveType === '2g') {
+    loadEssentialContentOnly();
+}</code></pre>
+            </div>
+            
+            <h2>Testing for Real Conditions</h2>
+            
+            <p>Our Nairobi-based testing protocol:</p>
+            
+            <ul>
+                <li><strong>Throttled testing:</strong> Simulate 2G (250kbps) and 3G (1Mbps)</li>
+                <li><strong>Field testing:</strong> Actual devices in Nakuru and Kisumu</li>
+                <li><strong>Monitoring:</strong> Track real user metrics via simplified analytics</li>
+            </ul>
+            
+            <h2>The Business Case</h2>
+            
+            <p>Why this matters for East African businesses:</p>
+            
+            <ul>
+                <li>Each 1s delay reduces conversions by 7%</li>
+                <li>Lightweight sites rank better on low-end devices</li>
+                <li>Reduced data usage increases user retention</li>
+            </ul>
+        </article>
+    </div>
+    
+    <!-- Article Footer -->
+    <footer class="article-footer">
+        <div class="container">
+            <h3>Need Help Optimizing for East Africa?</h3>
+            <p>I consult on low-bandwidth optimization strategies tailored to your audience.</p>
+            <a href="index.html#contact" class="cta-button">Get Expert Advice</a>
+            <div style="margin-top: 40px; color: var(--text-secondary);">
+                <p>&copy; <span id="current-year"></span> Benjamin Mutinda. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Auto-update copyright year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
