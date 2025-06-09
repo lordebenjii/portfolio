@@ -768,9 +768,9 @@ nav {
     gap: 30px;
     margin-top: 40px;
      img {
-        width: 100%;
-        height: auto;
-        max-width: 100%;
+        width: 100px;
+        height: 100px;
+        max-width: 100px;
         object-fit: cover;
         border-radius: 60px; /* optional: makes corners rounded */
       }
